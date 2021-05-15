@@ -10,6 +10,12 @@ This script can help you 😉
 2. For each page, fetch the HTML source and save them in [`html`](./html) folder
 3. Reformat all your HTML sources (important)
 4. Run `./mvnw spring-boot:run` (for mac and linux user, you may need chmod)
+5. Once finished, your OPML segment is ready in [`rss.xml`](./rss.xml)
+6. Open your RSS feed reader, export your feed into OPML file
+7. Learn the structure of your OPML file. Add all contents from `rss.xml`
+   to proper locations of your OPML file.
+8. Import your edited OPML file back into your RSS feed reader
+
 
 ## Some notes
 
@@ -23,4 +29,4 @@ as long as it contains all artists in the source file
   you can customize the program behavior using spring-configuration's recommended 
   [way](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config-files)
   - Here is all hackable configuration -> [`application.yml`](./src/main/resources/application.yml)
-    
+- I personally tested on TTRSS, it actually works 😂
