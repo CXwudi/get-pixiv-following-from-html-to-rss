@@ -1,0 +1,12 @@
+io.input-directory=html
+io.output-file=rss.xml
+config.pixiv-html-tag-contain-string=fmnvwg
+config.regex-to-html-tag=users\/(\\d*)" .*>(.*)<\/a>
+config.rss-opml-tag-template=<outline \
+  type="rss" \
+  text="{1} 的 pixiv 动态" \
+  xmlUrl="https://rsshub.app/pixiv/user/{0}" \
+  ttrssSortOrder="1" ttrssPurgeInterval="0" ttrssUpdateInterval="60" \
+  htmlUrl="https://www.pixiv.net/users/{0}"\
+  />
+logging.level.mikufan.cx=debug

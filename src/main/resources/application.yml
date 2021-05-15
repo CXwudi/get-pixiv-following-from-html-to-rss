@@ -1,0 +1,24 @@
+io:
+  input-directory: html
+  output-file: rss.xml
+
+config:
+  # given the formatted html page of user followings,
+  # using which string segment to locate one line that contains both the user id and the name
+  pixiv-html-tag-contain-string: fmnvwg
+  # regex to extract user id and name, must contain two groups, first one is user id, second is name
+  regex-to-html-tag: users/(\d*)".*>(.*)</a>
+  # the opml template used, where {0} is user id, {1} is name
+  # >- means that multiple lines will be concated as one string, where line breaks are replaced by spaces
+  rss-opml-tag-template: >-
+    <outline
+    type="rss" text="{1} 的 pixiv 动态"
+    xmlUrl="https://rsshub.app/pixiv/user/{0}"
+    ttrssSortOrder="1" ttrssPurgeInterval="0" ttrssUpdateInterval="240"
+    htmlUrl="https://www.pixiv.net/users/{0}"
+    />
+
+logging:
+  level:
+    mikufan:
+      cx: debug
