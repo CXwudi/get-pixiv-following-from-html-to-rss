@@ -6,7 +6,7 @@ This script can help you 😉
 
 ## How to use
 
-1. Go to https://www.pixiv.net/users/<your-user-id>/following 
+1. Go to `https://www.pixiv.net/users/<your-user-id>/following`
 2. For each page, fetch the HTML source and save them in [`html`](./html) folder
 3. Reformat all your HTML sources (important)
 4. Run `./mvnw spring-boot:run` (for mac and linux user, you may need chmod)
