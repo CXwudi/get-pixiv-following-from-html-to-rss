@@ -8,9 +8,9 @@ This script can help you 😉
 
 0. you need Java 11 properly setup
 1. Go to `https://www.pixiv.net/users/<your-user-id>/following`
-2. For each page, fetch the HTML source and save them in [`html`](./html) folder
+2. For each page, grab the HTML source and save them in [`html`](./html) folder
 3. Reformat all your HTML sources (important)
-4. Run `./mvnw spring-boot:run` (for mac and linux user, you may need chmod)
+4. Run `./mvnw spring-boot:run` (for mac and linux user, you may need chmod to enable the `mvnw` script)
 5. Once finished, your OPML segment is ready in [`rss.xml`](./rss.xml)
 6. Open your RSS feed reader, export your feed into OPML file
 7. Learn the structure of your OPML file. Add all contents from `rss.xml`
@@ -22,7 +22,7 @@ This script can help you 😉
 
 - The program relies on formatted HTML source where each HTML tag on its own line.
   Then the program will try to find the line that contains both user id and user name
-  - Check examples in [`html`](./html) folder
+  - Check examples in [`html`](./html) folder to see how formatted HTMLs look like
 - You don't have to save the whole web page, partial HTML source works as well,
 as long as it contains all artists in the source file
 - There are many many online HTML formatting site available for you
