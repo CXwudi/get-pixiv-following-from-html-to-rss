@@ -6,6 +6,7 @@ This script can help you 😉
 
 ## How to use
 
+0. you need Java 11 properly setup
 1. Go to `https://www.pixiv.net/users/<your-user-id>/following`
 2. For each page, fetch the HTML source and save them in [`html`](./html) folder
 3. Reformat all your HTML sources (important)
