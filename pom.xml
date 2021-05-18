@@ -87,7 +87,8 @@
 				</dependencies>
         <executions>
           <execution>
-            <id>compile</id>
+            <id>kotlin-compile</id>
+            <phase>compile</phase>
             <goals>
               <goal>compile</goal>
             </goals>
@@ -99,7 +100,8 @@
             </configuration>
           </execution>
           <execution>
-            <id>test-compile</id>
+            <id>kotlin-test-compile</id>
+            <phase>compile</phase>
             <goals> <goal>test-compile</goal> </goals>
             <configuration>
               <sourceDirs>
