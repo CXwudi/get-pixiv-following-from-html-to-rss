@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.5</version>
+		<version>2.5.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>mikufan.cx</groupId>
@@ -15,8 +15,19 @@
 	<description>Get and return a list of pixiv following in rss</description>
 	<properties>
 		<java.version>11</java.version>
-		<kotlin.version>1.5.0</kotlin.version>
+		<kotlin.version>1.5.10</kotlin.version>
 	</properties>
+
+  <repositories>
+    <!-- ... -->
+    <repository>
+      <id>spring-release</id>
+      <name>Spring release</name>
+      <url>https://repo.spring.io/release</url>
+    </repository>
+  </repositories>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -45,15 +56,14 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+    <dependency>
+      <groupId>org.springframework.experimental</groupId>
+      <artifactId>spring-native</artifactId>
+      <version>0.10.0</version>
+    </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -61,12 +71,41 @@
 		</dependency>
 	</dependencies>
 
+  <pluginRepositories>
+    <!-- ... -->
+    <pluginRepository>
+      <id>spring-release</id>
+      <name>Spring release</name>
+      <url>https://repo.spring.io/release</url>
+    </pluginRepository>
+  </pluginRepositories>
+
 	<build>
 		<plugins>
+      <plugin>
+        <groupId>org.springframework.experimental</groupId>
+        <artifactId>spring-aot-maven-plugin</artifactId>
+        <version>0.10.0</version>
+        <executions>
+          <execution>
+            <id>test-generate</id>
+            <goals>
+              <goal>test-generate</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>generate</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
 			<plugin>
 				<groupId>org.jetbrains.kotlin</groupId>
 				<artifactId>kotlin-maven-plugin</artifactId>
@@ -87,7 +126,7 @@
 				</dependencies>
         <executions>
           <execution>
-            <id>kotlin-compile</id>
+            <id>compile</id>
             <phase>compile</phase>
             <goals>
               <goal>compile</goal>
@@ -100,8 +139,8 @@
             </configuration>
           </execution>
           <execution>
-            <id>kotlin-test-compile</id>
-            <phase>compile</phase>
+            <id>test-compile</id>
+            <phase>test-compile</phase>
             <goals> <goal>test-compile</goal> </goals>
             <configuration>
               <sourceDirs>
@@ -145,5 +184,62 @@
       </plugin>
 		</plugins>
 	</build>
+
+
+  <profiles>
+    <profile>
+      <id>native</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.graalvm.buildtools</groupId>
+          <artifactId>junit-platform-native</artifactId>
+          <version>0.9.0</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <version>0.9.0</version>
+            <executions>
+              <execution>
+                <id>test-native</id>
+                <goals>
+                  <goal>test</goal>
+                </goals>
+                <phase>test</phase>
+              </execution>
+              <execution>
+                <id>build-native</id>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+            <configuration>
+              <!-- ... -->
+            </configuration>
+          </plugin>
+          <!-- Avoid a clash between Spring Boot repackaging and native-maven-plugin -->
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+              <classifier>exec</classifier>
+              <image>
+                <builder>paketobuildpacks/builder:tiny</builder>
+                <env>
+                  <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
+                </env>
+              </image>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
