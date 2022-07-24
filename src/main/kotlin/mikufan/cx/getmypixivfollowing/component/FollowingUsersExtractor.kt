@@ -16,8 +16,8 @@ import java.nio.file.Path
  */
 @Component
 class FollowingUsersExtractor(
-  @Value("\${config.pixiv-html-tag-contain-string}")val matchingTarget: String
-): RecordProcessor<Path, String> {
+  @Value("\${config.pixiv-html-tag-contain-string}") val matchingTarget: String
+) : RecordProcessor<Path, String> {
 
   /**
    * extracting the target line of html from each file

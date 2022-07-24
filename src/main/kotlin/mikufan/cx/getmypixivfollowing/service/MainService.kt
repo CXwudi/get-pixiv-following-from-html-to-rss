@@ -17,6 +17,7 @@ import java.nio.file.Path
  * @author CX无敌
  */
 private val log = KotlinLogging.logger {}
+
 @Service
 class MainService(
   val jobExecutor: JobExecutor,
@@ -25,7 +26,7 @@ class MainService(
   val stringsHolder: StringsHolder,
   val toRssMapper: ToRssMapper,
   val fileRecordWriter: FileRecordWriter
-) : Runnable{
+) : Runnable {
 
   override fun run() {
     // 1. read all files and write them into lines
@@ -46,11 +47,10 @@ class MainService(
       .reader(stringsHolder.createReaderWithClosure())
       .mapper(toRssMapper)
       .writer(fileRecordWriter)
-      .build();
+      .build()
     val jobReport2 = jobExecutor.execute(job2)
     log.info { "Finishing job 2: \n$jobReport2" }
 
     jobExecutor.close()
-
   }
 }

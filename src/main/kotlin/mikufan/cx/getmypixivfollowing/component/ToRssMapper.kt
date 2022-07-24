@@ -16,13 +16,13 @@ import java.text.MessageFormat
 class ToRssMapper(
   @Value("\${config.regex-to-html-tag}") val regex: Regex,
   @Value("\${config.rss-opml-tag-template}") val rssTemplate: String
-): RecordMapper<String, String> {
+) : RecordMapper<String, String> {
 
   override fun processRecord(record: Record<String>): Record<String> {
     val groupValues = regex.find(record.payload)?.groupValues
       ?: throw RuntimeException("Fail to match regex ${regex.pattern} for ${record.payload}").also {
         log.error(it) { "${it.message}" }
-    }
+      }
     // [0] is the entire match, so starting from [1]
     val rssStr = MessageFormat.format(rssTemplate, groupValues[1], groupValues[2].normalize())
     log.debug { "  #${record.header.number} rss str = $rssStr" }
@@ -31,4 +31,5 @@ class ToRssMapper(
 
   private fun String.normalize(): String = this.replace("\"", "")
 }
+
 private val log = KotlinLogging.logger {}
