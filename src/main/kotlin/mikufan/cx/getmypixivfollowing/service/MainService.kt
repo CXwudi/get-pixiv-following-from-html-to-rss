@@ -3,7 +3,7 @@ package mikufan.cx.getmypixivfollowing.service
 import mikufan.cx.getmypixivfollowing.component.FollowingUsersExtractor
 import mikufan.cx.getmypixivfollowing.component.StringsHolder
 import mikufan.cx.getmypixivfollowing.component.ToRssMapper
-import mu.KotlinLogging
+import mikufan.cx.inlinelogging.KInlineLogging
 import org.jeasy.batch.core.job.JobBuilder
 import org.jeasy.batch.core.job.JobExecutor
 import org.jeasy.batch.core.job.JobReport
@@ -16,7 +16,7 @@ import java.nio.file.Path
  * @date 2021-05-14
  * @author CX无敌
  */
-private val log = KotlinLogging.logger {}
+private val log = KInlineLogging.logger()
 
 @Service
 class MainService(

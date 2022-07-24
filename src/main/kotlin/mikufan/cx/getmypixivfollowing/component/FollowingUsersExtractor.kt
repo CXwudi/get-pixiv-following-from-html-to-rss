@@ -1,6 +1,6 @@
 package mikufan.cx.getmypixivfollowing.component
 
-import mu.KotlinLogging
+import mikufan.cx.inlinelogging.KInlineLogging
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
 import org.jeasy.batch.core.record.StringRecord
@@ -36,4 +36,4 @@ class FollowingUsersExtractor(
   }
 }
 
-private val log = KotlinLogging.logger {}
+private val log = KInlineLogging.logger()
